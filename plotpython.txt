@@ -1,0 +1,390 @@
+2   286   339
+#########
+## MTF ##
+#########
+lw = 4
+fs = 45
+fst = 35
+fig = plt.figure(figsize=(16,9))
+plt.clf()
+plot = fig.add_subplot(111)
+plot.tick_params(axis='both', which='major', labelsize=fst)
+plot.tick_params(axis='both', which='minor', labelsize=fst)
+plot.spines['top'].set_linewidth(lw)
+plot.spines['bottom'].set_linewidth(lw)
+plot.spines['left'].set_linewidth(lw)
+plot.spines['right'].set_linewidth(lw)
+plot.xaxis.set_tick_params(width=lw, length=8)
+plot.yaxis.set_tick_params(width=lw, length=8)
+plot.plot(w, mtf2, label='2 e/p/s', linewidth=lw*.9)
+plot.plot(w, mtf286, label='2.86 e/p/s', linewidth=lw*.9)
+plot.plot(w, mtf339, label='3.39 e/p/s', linewidth=lw*.9)
+plt.xlabel('Spatial Frequency [1/Nyquist]', fontsize=fs)
+plt.ylabel('MTF', fontsize=fs)
+plt.ylim(-0.02,1.02)
+plt.xlim(0,1)
+plot.legend(loc='lower right', fontsize=fst*0.75, frameon=False)
+plt.savefig('MTF.png', bbox_inches='tight')
+plt.show()
+
+###################
+## NPS DOSE RATE ##
+###################
+MOVING AVERaGE
+avg_mask = np.ones(10)/10
+nps339s = np.convolve(nps339, avg_mask, 'same')
+
+sub = -4
+lw = 4
+fs = 45
+fst = 35
+fig = plt.figure(figsize=(16,9))
+plt.clf()
+plot = fig.add_subplot(111)
+plot.tick_params(axis='both', which='major', labelsize=fst)
+plot.tick_params(axis='both', which='minor', labelsize=fst)
+plot.spines['top'].set_linewidth(lw)
+plot.spines['bottom'].set_linewidth(lw)
+plot.spines['left'].set_linewidth(lw)
+plot.spines['right'].set_linewidth(lw)
+plot.xaxis.set_tick_params(width=lw, length=8)
+plot.yaxis.set_tick_params(width=lw, length=8)
+plot.plot(w[2:sub], nps2ss[2:sub], label='2 e/p/s', linewidth=lw*.9)
+plot.plot(w[2:sub], nps286ss[2:sub], label='2.86 e/p/s', linewidth=lw*.9)
+plot.plot(w[2:sub], nps339ss[2:sub], label='3.39 e/p/s', linewidth=lw*.9)
+plt.xlabel('Spatial Frequency [1/Nyquist]', fontsize=fs)
+plt.ylabel('NPS [a.u.]', fontsize=fs)
+plt.ylim(0.55,1.05)
+plt.xlim(0,1)
+plot.legend(loc='lower right', fontsize=fst*0.75, frameon=False)
+plt.savefig('NPSDoseRate.png', bbox_inches='tight')
+plt.show()
+
+#########
+## DQE ##
+#########
+
+dqe2 = 1   dqe286 = 1   dqe339 = 1
+
+sub = -4
+lw = 4
+fs = 45
+fst = 35
+fig = plt.figure(figsize=(16,9))
+plt.clf()
+plot = fig.add_subplot(111)
+plot.tick_params(axis='both', which='major', labelsize=fst)
+plot.tick_params(axis='both', which='minor', labelsize=fst)
+plot.spines['top'].set_linewidth(lw)
+plot.spines['bottom'].set_linewidth(lw)
+plot.spines['left'].set_linewidth(lw)
+plot.spines['right'].set_linewidth(lw)
+plot.xaxis.set_tick_params(width=lw, length=8)
+plot.yaxis.set_tick_params(width=lw, length=8)
+plot.plot(w, dqew2test, label='2 e/p/s', linewidth=lw*.9)
+plot.plot(w, dqew286test, label='2.86 e/p/s', linewidth=lw*.9)
+plot.plot(w, dqew339test, label='3.39 e/p/s', linewidth=lw*.9)
+plt.xlabel('Spatial Frequency [1/Nyquist]', fontsize=fs)
+plt.ylabel('DQE [w]/DQE [0]', fontsize=fs)
+plt.ylim(-0.02,1.205)
+plt.xlim(0,1)
+plot.legend(loc='upper right', fontsize=fst*0.75, frameon=False)
+plt.savefig('DQE.png', bbox_inches='tight')
+plt.show()
+
+################################
+## NPS Counting & Integrating ##
+################################
+MOVING AVERaGE
+avg_mask = np.ones(10)/10
+nps339s = np.convolve(nps339, avg_mask, 'same')
+
+sub = -4
+lw = 4
+fs = 45
+fst = 35
+fig = plt.figure(figsize=(16,9))
+plt.clf()
+plot = fig.add_subplot(111)
+plot.tick_params(axis='both', which='major', labelsize=fst)
+plot.tick_params(axis='both', which='minor', labelsize=fst)
+plot.spines['top'].set_linewidth(lw)
+plot.spines['bottom'].set_linewidth(lw)
+plot.spines['left'].set_linewidth(lw)
+plot.spines['right'].set_linewidth(lw)
+plot.xaxis.set_tick_params(width=lw, length=8)
+plot.yaxis.set_tick_params(width=lw, length=8)
+plot.plot(w[2:sub], nps2ss[2:sub], label='Counting', linewidth=lw*.9)
+plot.plot(wi[2:sub], npsis[2:sub], label='Integrating', linewidth=lw*.9)
+plt.xlabel('Spatial Frequency [1/Nyquist]', fontsize=fs)
+plt.ylabel('NPS [a.u.]', fontsize=fs)
+plt.ylim(-0.05,1.1)
+plt.xlim(0,1)
+plot.legend(loc='center right', fontsize=fst*0.75, frameon=False)
+plt.savefig('NPSComparison.png', bbox_inches='tight')
+plt.show()
+
+################################
+## MTF Counting & Integrating ##
+################################
+
+sub = -4
+lw = 4
+fs = 45
+fst = 35
+fig = plt.figure(figsize=(16,9))
+plt.clf()
+plot = fig.add_subplot(111)
+plot.tick_params(axis='both', which='major', labelsize=fst)
+plot.tick_params(axis='both', which='minor', labelsize=fst)
+plot.spines['top'].set_linewidth(lw)
+plot.spines['bottom'].set_linewidth(lw)
+plot.spines['left'].set_linewidth(lw)
+plot.spines['right'].set_linewidth(lw)
+plot.xaxis.set_tick_params(width=lw, length=8)
+plot.yaxis.set_tick_params(width=lw, length=8)
+plot.plot(w, mtf2, label='Counting', linewidth=lw*.9)
+plot.plot(wi, mtfi, label='Integrating', linewidth=lw*.9)
+plt.xlabel('Spatial Frequency [1/Nyquist]', fontsize=fs)
+plt.ylabel('MTF', fontsize=fs)
+plt.ylim(-0.02,1.02)
+plt.xlim(0,1)
+plot.legend(loc='upper right', fontsize=fst*0.75, frameon=False)
+plt.savefig('MTFComparison.png', bbox_inches='tight')
+plt.show()
+
+################################
+## DQE Counting & Integrating ##
+################################
+sqe0counting = 0.85 Assumed
+
+#####Inset
+sub = -4
+lw = 4
+fs = 45
+fst = 35
+fig = plt.figure(figsize=(16,9))
+plt.clf()
+plot = fig.add_subplot(111)
+plot.tick_params(axis='both', which='major', labelsize=fst)
+plot.tick_params(axis='both', which='minor', labelsize=fst)
+plot.spines['top'].set_linewidth(lw)
+plot.spines['bottom'].set_linewidth(lw)
+plot.spines['left'].set_linewidth(lw)
+plot.spines['right'].set_linewidth(lw)
+plot.xaxis.set_tick_params(width=lw, length=8)
+plot.yaxis.set_tick_params(width=lw, length=8)
+plot.plot(w, dqew2test, label='Counting', linewidth=lw*.9)
+plot.plot(wi, dqei/dqe0i, label='Integrating', linewidth=lw*.9)
+plt.xlabel('Spatial Frequency [1/Nyquist]', fontsize=fs)
+plt.ylabel('DQE [w]/DQE [0]', fontsize=fs)
+plt.ylim(-0.02,1.2)
+plt.xlim(0,1)
+plot.legend(loc='upper right', fontsize=fst*0.75, frameon=False)
+plot2 = fig.add_axes([0.2, 0.2, 0.3, 0.3])
+plot2.tick_params(axis='both', which='major', labelsize=fst*0.5)
+plot2.tick_params(axis='both', which='minor', labelsize=fst*0.5)
+plot2.spines['top'].set_linewidth(lw*0.5)
+plot2.spines['bottom'].set_linewidth(lw*0.5)
+plot2.spines['left'].set_linewidth(lw*0.5)
+plot2.spines['right'].set_linewidth(lw*0.5)
+plot2.xaxis.set_tick_params(width=lw*0.5, length=8*0.5)
+plot2.yaxis.set_tick_params(width=lw*0.5, length=8*0.5)
+plot2.plot(wi, dqei, 'r-', label='Integrating', linewidth=lw*.4)
+plot2.plot(w, dqew2, 'c-', label='Counting', linewidth=lw*.4)
+plot2.set_ylim(-0.02,1.02)
+plot2.set_xlabel('Spatial Frequency [1/Nyquist]', fontsize=fs*0.5)
+plot2.set_ylabel('DQE [w]', fontsize=fs*0.5)
+plot2.legend(loc='upper right', fontsize=fst*0.40, frameon=False)
+plt.savefig('DQEComparison.png', bbox_inches='tight')
+plt.show()
+
+##No inset
+sub = -4
+lw = 4
+fs = 45
+fst = 35
+fig = plt.figure(figsize=(16,9))
+plt.clf()
+plot = fig.add_subplot(111)
+plot.tick_params(axis='both', which='major', labelsize=fst)
+plot.tick_params(axis='both', which='minor', labelsize=fst)
+plot.spines['top'].set_linewidth(lw)
+plot.spines['bottom'].set_linewidth(lw)
+plot.spines['left'].set_linewidth(lw)
+plot.spines['right'].set_linewidth(lw)
+plot.xaxis.set_tick_params(width=lw, length=8)
+plot.yaxis.set_tick_params(width=lw, length=8)
+plot.plot(w, dqew2, label='Counting', linewidth=lw*.9)
+plot.plot(wi, dqei, label='Integrating', linewidth=lw*.9)
+plt.xlabel('Spatial Frequency [1/Nyquist]', fontsize=fs)
+plt.ylabel('DQE [w]', fontsize=fs)
+plt.ylim(-0.02,1.2)
+plt.xlim(0,1)
+plot.legend(loc='upper right', fontsize=fst*0.75, frameon=False)
+plt.savefig('DQEComparison.png', bbox_inches='tight')
+plt.show()
+
+#####################
+## WienerPS Plots ##
+####################
+
+f = plt.figure(figsize=(16,9))
+axs = plt.subplot(211)
+axs1 = plt.subplot(212, sharex = ax1)
+f.subplots_adjust(hspace=0)
+
+axs.tick_params(axis='both', which='major', labelsize=fst)
+axs.tick_params(axis='both', which='minor', labelsize=fst)
+axs.spines['top'].set_linewidth(lw)
+axs.spines['bottom'].set_linewidth(lw)
+axs.spines['left'].set_linewidth(lw)
+axs.spines['right'].set_linewidth(lw)
+axs.xaxis.set_tick_params(width=lw, length=8)
+axs.set_xticklabels([])
+axs.yaxis.set_tick_params(width=lw, length=8)
+axs.set_ylim(29.8, 50)
+axs.plot(wnorm, im, label='Not normalized', linewidth=lw*.9)
+axs.legend(loc='lower right', fontsize=fst*0.75, frameon=False)
+
+axs1.tick_params(axis='both', which='major', labelsize=fst)
+axs1.tick_params(axis='both', which='minor', labelsize=fst)
+axs1.spines['top'].set_linewidth(lw)
+axs1.spines['bottom'].set_linewidth(lw)
+axs1.spines['left'].set_linewidth(lw)
+axs1.spines['right'].set_linewidth(lw)
+axs1.xaxis.set_tick_params(width=lw, length=8)
+axs1.yaxis.set_tick_params(width=lw, length=8)
+axs1.set_ylim(0.68, 1.2)
+axs1.plot(wnorm, imnorm, 'r-', label='Normalized', linewidth=lw*.9)
+axs1.legend(loc='lower right', fontsize=fst*0.75, frameon=False)
+axs1.set_xlabel('Spatial Frequency [1/Nyquist]', fontsize=fs)
+f.text(0.06, 0.5, 'Wiener Spectra [w]', fontsize=fs, ha='center', va='center', rotation='vertical')
+plt.savefig('WienerPS.png', bbox_inches='tight')
+plt.show()
+
+
+
+axs = f.subplots(2, 1, sharex=True)
+f.subplots_adjust(hspace=0)
+axs = f.add_subplot(111)
+axs1 = f.add_subplot(212, sharex=axs)
+
+
+lw = 4
+fs = 45
+fst = 35
+
+fig, axs = plt.subplots(2, 1, sharex=True)
+fig.subplots_adjust(hspace=0)
+plt.xlabel('Spatial Frequency [1/Nyquist]', fontsize=fs)
+
+axs[0].tick_params(axis='both', which='major', labelsize=fst)
+axs[0].tick_params(axis='both', which='minor', labelsize=fst)
+axs[0].spines['top'].set_linewidth(lw)
+axs[0].spines['bottom'].set_linewidth(lw)
+axs[0].spines['left'].set_linewidth(lw)
+axs[0].spines['right'].set_linewidth(lw)
+axs[0].xaxis.set_tick_params(width=lw, length=8)
+axs[0].yaxis.set_tick_params(width=lw, length=8)
+axs[0].set_ylim(29.8, 50)
+axs[0].plot(wnorm, im, label='Not normalized', linewidth=lw*.9)
+axs[0].legend(loc='lower right', fontsize=fst*0.75, frameon=False)
+
+axs[1].tick_params(axis='both', which='major', labelsize=fst)
+axs[1].tick_params(axis='both', which='minor', labelsize=fst)
+axs[1].spines['top'].set_linewidth(lw)
+axs[1].spines['bottom'].set_linewidth(lw)
+axs[1].spines['left'].set_linewidth(lw)
+axs[1].spines['right'].set_linewidth(lw)
+axs[1].xaxis.set_tick_params(width=lw, length=8)
+axs[1].yaxis.set_tick_params(width=lw, length=8)
+axs[1].set_ylim(0.68, 1.2)
+axs[1].plot(wnorm, imnorm, 'r-', label='Normalized', linewidth=lw*.9)
+axs[1].legend(loc='lower right', fontsize=fst*0.75, frameon=False)
+plt.savefig('WienerPS.png', bbox_inches='tight')
+plt.show()
+
+sub = -4
+lw = 4
+fs = 45
+fst = 35
+fig = plt.figure(figsize=(16,9))
+fig.subplots_adjust(hspace=0)
+plt.clf()
+plot = fig.add_subplot(121)
+plot.tick_params(axis='both', which='major', labelsize=fst)
+plot.tick_params(axis='both', which='minor', labelsize=fst)
+plot.spines['top'].set_linewidth(lw)
+plot.spines['bottom'].set_linewidth(lw)
+plot.spines['left'].set_linewidth(lw)
+plot.spines['right'].set_linewidth(lw)
+plot.xaxis.set_tick_params(width=lw, length=8)
+plot.yaxis.set_tick_params(width=lw, length=8)
+plot.plot(w, im, label='Not normalized', linewidth=lw*.9)
+# plt.xlabel('Spatial Frequency [1/Nyquist]', fontsize=fs)
+
+plt.ylabel(' Wiener Spectra [a.u.]', fontsize=fs)
+plt.ylim(0, 50)
+plt.xlim(0,1)
+
+plot2 = fig.add_subplot(122)
+plot2.tick_params(axis='both', which='major', labelsize=fst)
+plot2.tick_params(axis='both', which='minor', labelsize=fst)
+plot2.spines['top'].set_linewidth(lw)
+plot2.spines['bottom'].set_linewidth(lw)
+plot2.spines['left'].set_linewidth(lw)
+plot2.spines['right'].set_linewidth(lw)
+plot2.xaxis.set_tick_params(width=lw, length=8)
+plot2.yaxis.set_tick_params(width=lw, length=8)
+plot2.plot(wnorm, imnorm, 'r-', label='Normalized', linewidth=lw*.9)
+plot2.set_ylim(0.7,1.2)
+plot2.yaxis.tick_right()
+# plot2.set_xlabel('Spatial Frequency [1/Nyquist]', fontsize=fs)
+
+plot2.legend(loc='upper right', fontsize=fst*0.40, frameon=False)
+plt.set_xlabel('Spatial Frequency [1/Nyquist]', fontsize=fs)
+plt.savefig('WienerPS.png', bbox_inches='tight')
+plt.show()
+
+
+## Inset version
+sub = -4
+lw = 4
+fs = 45
+fst = 35
+fig = plt.figure(figsize=(16,9))
+plt.clf()
+plot = fig.add_subplot(111)
+plot.tick_params(axis='both', which='major', labelsize=fst)
+plot.tick_params(axis='both', which='minor', labelsize=fst)
+plot.spines['top'].set_linewidth(lw)
+plot.spines['bottom'].set_linewidth(lw)
+plot.spines['left'].set_linewidth(lw)
+plot.spines['right'].set_linewidth(lw)
+plot.xaxis.set_tick_params(width=lw, length=8)
+plot.yaxis.set_tick_params(width=lw, length=8)
+plot.plot(w, im, label='Not normalized', linewidth=lw*.9)
+plot.plot(wnorm, imnorm, label='Normalized', linewidth=lw*.9)
+plt.xlabel('Spatial Frequency [1/Nyquist]', fontsize=fs)
+plt.ylabel(' Wiener Spectra [a.u.]', fontsize=fs)
+plt.ylim(0, 50)
+plt.xlim(0,1)
+plot.legend(loc='center right', fontsize=fst*0.75, frameon=False)
+plot2 = fig.add_axes([0.2, 0.2, 0.3, 0.3])
+plot2.tick_params(axis='both', which='major', labelsize=fst*0.5)
+plot2.tick_params(axis='both', which='minor', labelsize=fst*0.5)
+plot2.spines['top'].set_linewidth(lw*0.5)
+plot2.spines['bottom'].set_linewidth(lw*0.5)
+plot2.spines['left'].set_linewidth(lw*0.5)
+plot2.spines['right'].set_linewidth(lw*0.5)
+plot2.xaxis.set_tick_params(width=lw*0.5, length=8*0.5)
+plot2.yaxis.set_tick_params(width=lw*0.5, length=8*0.5)
+plot2.plot(wnorm, imnorm, 'r-', label='Normalized', linewidth=lw*.4)
+plot2.set_ylim(0.7,1.2)
+plot2.set_xlabel('Spatial Frequency [1/Nyquist]', fontsize=fs*0.5)
+plot2.set_ylabel('Wiener Spectra [w]', fontsize=fs*0.5)
+plot2.legend(loc='upper right', fontsize=fst*0.40, frameon=False)
+plt.savefig('WienerPS.png', bbox_inches='tight')
+plt.show()
+
